@@ -1,6 +1,7 @@
 package jeckelcorelibrary.base.guis;
 
-import jeckelcorelibrary.api.guis.IGuiSynchable;
+import jeckelcorelibrary.api.processes.ITickProcess;
+import jeckelcorelibrary.api.tiles.ITileProcessor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
@@ -12,9 +13,12 @@ public abstract class AContainerTileInventory<TTileEntity extends TileEntity> ex
 		super(player, inventory, width, height);
 		this._tile = tile;
 
-		if (this._tile instanceof IGuiSynchable)
+		if (this._tile instanceof ITileProcessor)
 		{
-			((IGuiSynchable) this._tile).supplySynchHandlers(this._synchList);
+			for (final ITickProcess process : ((ITileProcessor) this._tile).getProcesses())
+			{
+				process.supplySynchHandlers(this._synchList);
+			}
 		}
 	}
 
