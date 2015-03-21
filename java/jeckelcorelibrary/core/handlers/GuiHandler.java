@@ -1,11 +1,8 @@
 package jeckelcorelibrary.core.handlers;
 
-import jeckelcorelibrary.api.blocks.IBlockGui;
 import jeckelcorelibrary.api.guis.IBlockGuiActivator;
 import jeckelcorelibrary.api.guis.IItemGuiActivator;
 import jeckelcorelibrary.api.guis.ITileGuiActivator;
-import jeckelcorelibrary.api.items.IItemGui;
-import jeckelcorelibrary.api.tiles.ITileGui;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -58,7 +55,7 @@ public class GuiHandler implements IGuiHandler
 		{
 			final ItemStack stack = player.getHeldItem();
 			final Item item = (stack == null ? null : stack.getItem());
-			if (item != null && (item instanceof IItemGui || item instanceof IItemGuiActivator))
+			if (item != null && item instanceof IItemGuiActivator)
 			{
 				return ((IItemGuiActivator)item).createContainer(player);
 			}
@@ -66,7 +63,7 @@ public class GuiHandler implements IGuiHandler
 
 		{
 			final Block block = world.getBlock(x, y, z);
-			if (block != null && (block instanceof IBlockGui || block instanceof IBlockGuiActivator))
+			if (block != null && block instanceof IBlockGuiActivator)
 			{
 				return ((IBlockGuiActivator)block).createContainer(player, world, x, y, z);
 			}
@@ -74,7 +71,7 @@ public class GuiHandler implements IGuiHandler
 
 		{
 			final TileEntity tile = world.getTileEntity(x, y, z);
-			if (tile != null && (tile instanceof ITileGui || tile instanceof ITileGuiActivator))
+			if (tile != null && tile instanceof ITileGuiActivator)
 			{
 				return ((ITileGuiActivator)tile).createContainer(player);
 			}
@@ -117,7 +114,7 @@ public class GuiHandler implements IGuiHandler
 		{
 			final ItemStack stack = player.getHeldItem();
 			final Item item = (stack == null ? null : stack.getItem());
-			if (item != null && (item instanceof IItemGui || item instanceof IItemGuiActivator))
+			if (item != null && item instanceof IItemGuiActivator)
 			{
 				if (world.isRemote) { return ((IItemGuiActivator)item).createScreen(player); }
 				else { return ((IItemGuiActivator)item).createContainer(player); }
@@ -126,7 +123,7 @@ public class GuiHandler implements IGuiHandler
 
 		{
 			final Block block = world.getBlock(x, y, z);
-			if (block != null && (block instanceof IBlockGui || block instanceof IBlockGuiActivator))
+			if (block != null && block instanceof IBlockGuiActivator)
 			{
 				if (world.isRemote) { return ((IBlockGuiActivator)block).createScreen(player, world, x, y, z); }
 				else { return ((IBlockGuiActivator)block).createContainer(player, world, x, y, z); }
@@ -135,7 +132,7 @@ public class GuiHandler implements IGuiHandler
 
 		{
 			final TileEntity tile = world.getTileEntity(x, y, z);
-			if (tile != null && (tile instanceof ITileGui || tile instanceof ITileGuiActivator))
+			if (tile != null && tile instanceof ITileGuiActivator)
 			{
 				if (world.isRemote) { return ((ITileGuiActivator)tile).createScreen(player); }
 				else { return ((ITileGuiActivator)tile).createContainer(player); }
