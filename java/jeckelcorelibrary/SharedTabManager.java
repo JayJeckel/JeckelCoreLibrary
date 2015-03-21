@@ -40,18 +40,19 @@ public class SharedTabManager
 		return this._tabMachines;
 	}
 
-	public void addMachineStack(final String modId, final Item item) { this.getMachineRegistry().addMisc(modId, item); }
+	public void addMachineMisc(final String modId, final Block block) { this.getMachineRegistry().addMisc(modId, block); }
 
-	public void addMachineStack(final String modId, final Item item, final int meta) { this.getMachineRegistry().addMisc(modId, item, meta); }
+	public void addMachineMisc(final String modId, final Block block, final int meta) { this.getMachineRegistry().addMisc(modId, block, meta); }
 
-	public void addMachineStack(final String modId, final Block block) { this.getMachineRegistry().addMisc(modId, block); }
+	public void addMachineMisc(final String modId, final Item item) { this.getMachineRegistry().addMisc(modId, item); }
 
-	public void addMachineStack(final String modId, final Block block, final int meta) { this.getMachineRegistry().addMisc(modId, block, meta); }
+	public void addMachineMisc(final String modId, final Item item, final int meta) { this.getMachineRegistry().addMisc(modId, item, meta); }
 
-	public void addMachineStack(final String modId, final ItemStack stack) { this.getMachineRegistry().addMisc(modId, stack); }
+	public void addMachineBlock(final String modId, final Block block) { this.getMachineRegistry().addBlock(modId, block); }
 
-	public void addMachineBlock(final String modId, final ItemStack stack) { this.getMachineRegistry().addBlock(modId, stack); }
+	public void addMachineBlock(final String modId, final Block block, final int meta) { this.getMachineRegistry().addBlock(modId, block, meta); }
 
-	public void addMachineItem(final String modId, final ItemStack stack) { this.getMachineRegistry().addItem(modId, stack); }
+	public void addMachineItem(final String modId, final Item item) { this.getMachineRegistry().addItem(modId, item); }
 
+	public void addMachineItem(final String modId, final Item item, final int meta) { this.getMachineRegistry().addItem(modId, item, meta); }
 }
