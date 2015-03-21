@@ -1,0 +1,25 @@
+{
+	"modListVersion": 2,
+	"modList":
+	[
+		{
+			"modid": "jeckelcorelibrary",
+			"name": "JeckelCoreLibrary",
+			"description": "A library of core code used in many Jeckel mods.",
+			"version": "${version}",
+			"mcversion": "${mcversion}",
+			"forgeversion": "${forgeversion}",
+			"url": "http://minecraft.jeckelland.site88.net/mods/${name}/",
+			"updateUrl": "",
+			"authorList": ["JayJeckel"],
+			"credits": "",
+			"logoFile": "banner.png",
+			"screenshots": [],
+			"parent": "",
+			"requiredMods": [ "Forge" ],
+			"dependencies": [],
+			"dependants": [],
+			"useDependencyInformation": true
+		}
+	]
+}

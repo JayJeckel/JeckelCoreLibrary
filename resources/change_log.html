@@ -1,0 +1,92 @@
+
+<header><h3>Version: 0.6.0-beta</h3></header>
+
+<ul>
+<li>Fix: Tank tooltips should now use the proper 'mb' (millibuckets) suffix instead of the 'b' (buckets) suffix.</li>
+<li>Fix: Refixed issue with screen tooltips causing graphics quirks in NEI. That is what I get for trying to use the Notch code instead of my hand-rolled version.</li>
+<li>Fix: Took care of a few glitches in the tank synch handlers.</li>
+<li>Fix: </li>
+</ul>
+
+<ul>
+<li>Code: Removed most deprecated code.</li>
+<li>Code: Ported several commonly used methods from mods down to base classes.</li>
+<li>Code: Ported in BlockPosition from TreeHarvesterMod.</li>
+<li>Code: Ported in new MappedCreativeTab methods from DoorMod. Use of these methods should solve the issue with items not being found in creative search tab.</li>
+<li>Code: Implemented some more math helper methods.</li>
+<li>Code: </li>
+</ul>
+
+<header><h3>Version: 0.5.1-beta</h3></header>
+
+<ul>
+<li>NOTE: This update should be backwards compatible with all dependent Jeckel Mods, except JeckelRockCrusherMod.</li>
+<li>Fix: Implemented some error checking in InvUtil.canPullStack() and InvUtil.canPushStack so that false is returned instead of exceptions being thrown.</li>
+<li>Code: Implemented DynamicMultiSolidToSolidConverterProcess class.</li>
+</ul>
+
+<header><h3>Version: 0.5.0-beta</h3></header>
+
+<ul>
+<li>Fix: Client only method was being called on remote clients when the update checker ran, making dependent mods unusable in LAN multiplayer.</li>
+<li>Fix: Hopefully fixed issue where the config screen was not available for some people.</li>
+<li>Fix: Update Checking will now be done asynchronously, as was intended.</li>
+<li>Fix: Stacks added to the shared creative time are now searchable.</li>
+</ul>
+<ul>
+<li>Code: Large groups of things have been marked as deprecated. Most of it will be removed in the next version.</li>
+<li>Code: Created TimeUtil and implemented methods to turn calculate ticks from secs, mins, hours, and days values and method to turn ticks into a human-readable string for display.</li>
+<li>Code: Created MathUil and put math related methods from CoreUtil in it, deprecating those methods in CoreUtil.</li>
+<li>Code: Created BlockUtil and put a few helper methods in it.</li>
+<li>Code: Major overhaul on processes. Old process classes have been deprecated and will be removed in a future version.</li>
+<li>Code: Overhaul on containers and screens to simplify deriving new classes.</li>
+<li>Code: Overhaul on creative tabs and drastically simplified registering stacks with the shared machine tab.</li>
+<li>Code: Moved getDescriptionPacket and onDescriptionPacket down from ATileInventory to ATileBase.</li>
+<li>Code: Overrode Container mergeItemStack method to make it aware of stack, inventory, and slot stack size limits.</li>
+<li>Code: Overrode Container transferStackInSlot method to make it workable for all derived classes that override getMergeSlotCount and isValidSlotItem methods.</li>
+<li>Code: Implemented process related draw methods to AInventoryScreen.</li>
+<li>Code: Implemented direction ordinal (ie int) versions of DirUtil left, right, and reverse methods.</li>
+<li>Code: Implemented various new helper methods to InvUtil to simplify searching inventories.</li>
+<li>Code: Implemented readFromNBT and writeToNBT overrides hierarchy to ATileBase and ATileInventory. Those two classes now save their own data, so custom name and inventory save/loading doesn't have to be included in every derived tile.</li>
+<li>Code: Implemented GameRegUtil.item() and GameRegUtil.recipeShaped() helper methods.</li>
+</ul>
+<ul>
+<li>Code: Ported in TickProcess from JeckelTreeHarversterMod.</li>
+<li>Code: Ported in IBlockGui from JeckelCraftingBoardMod and updated GuiHandler accordingly.</li>
+<li>Code: Ported in BlockMetaColored/ItemBlockMetaColored and BlockMetaWooden/ItemBlockMetaWooden from JeckelCraftingBoardMod.</li>
+<li>Code: Various minor changes.</li>
+</ul>
+<ul>
+<li>Misc: Commented various things, mostly the newly added stuff, but also took a pass through the util classes.</li>
+</ul>
+
+<header><h3>Version: 0.4.0-beta</h3></header>
+
+<ul>
+<li>Feature: Implemented a shared 'JeckelMachines' creative tab utilizing IMC to register items and blocks.</li>
+<li>COde: Created ChatUtil to collect chat related helper methods.</li>
+<li>Code: Ported in several interfaces, their basic class implementations, and other various classes from dependent mods.</li>
+<li>Code: Several other various changes.</li>
+</ul>
+
+<header><h3>Version: 0.3.0-beta</h3></header>
+
+<ul>
+<li>Fix: Dependent mods throw GuiScreen class not found in dedicated server. Fixed by changing ITileGui methods' return types to Object.</li>
+<li>Code: Incorporated GuiHandler from dependent mods into core package.</li>
+</ul>
+
+<header><h3>Version: 0.2.0-beta</h3></header>
+
+<ul>
+<li>Code: Renamed several classes and methods from 'liquid' to 'fluid'.</li>
+<li>Code: Major clean up and rewrite of the process related classes.</li>
+<li>Code: Implemented IInventoryDropFilter to give tiles a chance to filter out items that shouldn't drop when the block is destroyed.</li>
+</ul>
+
+<header><h3>Version: 0.1.0-beta</h3></header>
+
+<ul>
+<li>Mod: Initial release. For Minecraft 1.7.10 and Forge 10.13.1.1217.</li>
+<li>Misc: Ported, updated, and reworked a large chunk of JeckelBaseMod library as a starting place.</li>
+</ul>
