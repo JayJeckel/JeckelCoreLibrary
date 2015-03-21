@@ -8,8 +8,6 @@ import jeckelcorelibrary.core.commands.InfoModCommand;
 import jeckelcorelibrary.core.configs.ConfigHandler;
 import jeckelcorelibrary.core.configs.ConfigHandlerValues;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.config.Configuration;
 
@@ -38,10 +36,6 @@ public class JeckelCoreLibrary
 
 	public JeckelCoreLibrary() { }
 
-	//private MappedCreativeTab _tabMachines = null;
-
-	//private SharedTabManager _tabManager = null;
-
 	@Mod.EventHandler
 	public void preInitialize(FMLPreInitializationEvent event)
 	{
@@ -64,74 +58,12 @@ public class JeckelCoreLibrary
 	{
 		for (final FMLInterModComms.IMCMessage imc : event.getMessages())
 		{
-			String senderId = imc.getSender();
+			final String senderId = imc.getSender();
 
 			if (imc.key.startsWith("register.tab"))
 			{
 				GlobalRefs.getTabManager().receiveMessage(imc.key, senderId, imc.getStringValue());
 				continue;
-			}
-
-			if (imc.key.startsWith("tab.add.machine") || imc.key.startsWith("register.tab.machine"))
-			{
-				/*if (this._tabMachines == null)
-				{
-					this._tabMachines = new MappedCreativeTab(Refs.ModId + ".machines.name");
-					this._tabMachines.setIconItemStack(new ItemStack(Blocks.furnace));
-				}*/
-			}
-
-			if (imc.isItemStackMessage())
-			{
-				if (imc.key.equalsIgnoreCase("tab.add.machine.blocks"))
-				{
-					GlobalRefs.getTabManager().addMachineBlock(senderId, imc.getItemStackValue());
-				}
-				else if (imc.key.equalsIgnoreCase("tab.add.machine.items"))
-				{
-					GlobalRefs.getTabManager().addMachineItem(senderId, imc.getItemStackValue());
-				}
-				else if (imc.key.equalsIgnoreCase("tab.add.machine.stacks"))
-				{
-					GlobalRefs.getTabManager().addMachineStack(senderId, imc.getItemStackValue());
-				}
-			}
-			else if (imc.isNBTMessage())
-			{
-				if (imc.key.equalsIgnoreCase("tab.add.machine.stacks"))
-				{
-					NBTTagCompound tagCompound = imc.getNBTValue();
-					if (tagCompound.hasKey("blocks"))
-					{
-						NBTTagCompound tag = tagCompound.getCompoundTag("blocks");
-						int count = tag.getInteger("count");
-						for (int index = 0; index < count; index++)
-						{
-							ItemStack stack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("stack" + index));
-							GlobalRefs.getTabManager().addMachineBlock(senderId, stack);
-						}
-					}
-					if (tagCompound.hasKey("items"))
-					{
-						NBTTagCompound tag = tagCompound.getCompoundTag("items");
-						int count = tag.getInteger("count");
-						for (int index = 0; index < count; index++)
-						{
-							ItemStack stack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("stack" + index));
-							GlobalRefs.getTabManager().addMachineItem(senderId, stack);
-						}
-					}
-					if (tagCompound.hasKey("stacks"))
-					{
-						NBTTagCompound tag = tagCompound.getCompoundTag("stacks");
-						int count = tag.getInteger("count");
-						for (int index = 0; index < count; index++)
-						{
-							ItemStack stack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("stack" + index));
-							GlobalRefs.getTabManager().addMachineStack(senderId, stack);
-						}
-					}
-				}
 			}
 		}
 	}
