@@ -24,21 +24,6 @@ public class MappedCreativeTab extends ACustomCreativeTab implements ISharedTabR
 	private Map<String, List<ItemStack>> _mapBlocks = new HashMap<String, List<ItemStack>>();
 	private Map<String, List<ItemStack>> _mapItems = new HashMap<String, List<ItemStack>>();
 
-	/*
-	 * @deprecated Use addMisc method instead.
-	 */
-	/*@Deprecated
-	public void add(String modId, ItemStack stack)
-	{
-		if (stack == null || stack.getItem() == null) { return; }
-		if (!this._listModIds.contains(modId)) { this._listModIds.add(modId); }
-		if (!this._mapMisc.containsKey(modId)) { this._mapMisc.put(modId, new ArrayList<ItemStack>()); }
-		this._mapMisc.get(modId).add(stack.copy());
-		final Block block = BlockUtil.getBlock(stack);
-		if (block != null) { block.setCreativeTab(this); }
-		else { stack.getItem().setCreativeTab(this); }
-	}*/
-
 
 	// ##################################################
 	//
@@ -155,16 +140,6 @@ public class MappedCreativeTab extends ACustomCreativeTab implements ISharedTabR
 				}
 			}
 		}
-
-		//Block block;
-		//Item item;
-
-		/*block = BarrelBlocks.barrel_wood;
-		item = Item.getItemFromBlock(block);
-		block.getSubBlocks(item, this, list);
-
-		item = LocalItems.nugget_iron;
-		item.getSubItems(item, this, list);*/
 
 		if (this.func_111225_m() != null)
 		{
