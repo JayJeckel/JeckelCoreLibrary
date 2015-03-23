@@ -24,7 +24,14 @@ public class GameRegUtil
 	 * Register a block.
 	 * @param block Block to register.
 	 */
-	public static void block(Block block) { GameRegistry.registerBlock(block, block.getUnlocalizedName()); }
+	public static void block(final Block block) { GameRegistry.registerBlock(block, block.getUnlocalizedName()); }
+
+	/**
+	 * Register a block with a specific name.
+	 * @param block Block to register.
+	 * @param name Name of the block.
+	 */
+	public static void block(final Block block, final String name) { GameRegistry.registerBlock(block, name); }
 
 	/**
 	 * Register a block and optionally associate an item block class and/or a tile entity class.
@@ -47,7 +54,8 @@ public class GameRegUtil
 	 */
 	public static void item(Item item)
 	{
-		GameRegistry.registerItem(item, item.getUnlocalizedName().substring(5));
+		final String name = item.getUnlocalizedName().substring(5);
+		GameRegistry.registerItem(item, name);
 	}
 
 	/**
