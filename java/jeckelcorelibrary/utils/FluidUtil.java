@@ -1,9 +1,14 @@
 package jeckelcorelibrary.utils;
 
+import jeckelcorelibrary.core.guis.SynchList;
+import jeckelcorelibrary.core.guis.TankSynchHandlers.AmountAdditional;
+import jeckelcorelibrary.core.guis.TankSynchHandlers.AmountPrimary;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
 /**
  * Static helper class to centralize fluid related methods.
@@ -115,5 +120,43 @@ public final class FluidUtil
 	public static ItemStack getFilledContainer(FluidStack fluid, ItemStack empty)
 	{
 		return FluidContainerRegistry.fillFluidContainer(fluid, empty);
+	}
+
+
+
+	public static void supplySynchHandlers(final FluidTank tank, final SynchList list)
+	{
+		list.addTankFluidId(tank);
+		if (tank.getCapacity() <= 32000)
+		{
+			list.addTankFluidAmount(tank);
+		}
+		else if (tank.getCapacity() <= 64000)
+		{
+			list.add(new AmountPrimary(tank));
+			list.add(new AmountAdditional(tank));
+		}
+		else
+		{
+			throw new IllegalArgumentException("Fluid capacities larger than 64000 can not be handled.");
+		}
+	}
+
+	public static void readNBTTank(final FluidTank tank, final String tankName, final NBTTagCompound tagCompound)
+	{
+		if (tagCompound.hasKey(tankName))
+		{
+			NBTTagCompound tag = tagCompound.getCompoundTag(tankName);
+			if (tank.getCapacity() < 0) { tank.setCapacity(tag.getInteger("capacity")); }
+			if (tag.hasKey("fluid")) { tank.readFromNBT(tag.getCompoundTag("fluid")); }
+		}
+	}
+
+	public static void writeNBTTank(final FluidTank tank, final String tankName, final NBTTagCompound tagCompound)
+	{
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setInteger("capacity", tank.getCapacity());
+		tag.setTag("fluid", tank.writeToNBT(new NBTTagCompound()));
+		tagCompound.setTag(tankName, tag);
 	}
 }

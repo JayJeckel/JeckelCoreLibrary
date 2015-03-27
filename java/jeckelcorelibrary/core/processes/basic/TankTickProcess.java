@@ -1,8 +1,6 @@
 package jeckelcorelibrary.core.processes.basic;
 
 import jeckelcorelibrary.core.guis.SynchList;
-import jeckelcorelibrary.core.guis.TankSynchHandlers.AmountAdditional;
-import jeckelcorelibrary.core.guis.TankSynchHandlers.AmountPrimary;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -94,7 +92,7 @@ public class TankTickProcess extends TickProcess
 	public void supplySynchHandlers(final SynchList list)
 	{
 		super.supplySynchHandlers(list);
-		list.addTankFluidId(this.getTank());
+		/*list.addTankFluidId(this.getTank());
 		if (this.getTank().getCapacity() <= 32000)
 		{
 			list.addTankFluidAmount(this.getTank());
@@ -107,6 +105,6 @@ public class TankTickProcess extends TickProcess
 		else
 		{
 			throw new IllegalArgumentException("Fluid capacities larger than 64000 can not be handled.");
-		}
+		}*/
 	}
 }
