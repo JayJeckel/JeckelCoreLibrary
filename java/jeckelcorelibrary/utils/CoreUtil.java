@@ -18,6 +18,11 @@ public final class CoreUtil
 	 */
 	private CoreUtil() { }
 
+	/**
+	 * Return sorted list of items in the given collection.
+	 * @param c Collection of items to sort.
+	 * @return New list containing items sorted.
+	 */
 	public static <T extends Comparable<? super T>> List<T> asSortedList(Collection<T> c)
 	{
 		List<T> list = new ArrayList<T>(c);
