@@ -1,9 +1,13 @@
 package jeckelcorelibrary.base.tiles;
 
+import jeckelcorelibrary.api.processes.ITickProcess;
 import jeckelcorelibrary.api.tiles.ITileCustomName;
 import jeckelcorelibrary.api.tiles.ITileFrontSide;
 import jeckelcorelibrary.api.tiles.ITileName;
+import jeckelcorelibrary.api.tiles.ITileProcessor;
+import jeckelcorelibrary.api.tiles.ITileTanker;
 import jeckelcorelibrary.utils.DirUtil;
+import jeckelcorelibrary.utils.FluidUtil;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -11,6 +15,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidTank;
 
 public abstract class ATileBase
 extends TileEntity
@@ -27,13 +32,64 @@ implements ITileName, ITileCustomName, ITileFrontSide
 	//
 	// ##################################################
 
-	@Override public void readFromNBT(NBTTagCompound tagCompound)
+	public void readNBTTanks(final NBTTagCompound tagCompound)
+	{
+		if (this instanceof ITileTanker)
+		{
+			for (int index = 0; index < ((ITileTanker)this).getTanks().size(); index++)
+			{
+				final FluidTank tank = ((ITileTanker)this).getTanks().get(index);
+				final String name = "tank_" + index;
+				FluidUtil.readNBTTank(tank, name, tagCompound);
+			}
+		}
+	}
+
+	public void writeNBTTanks(final NBTTagCompound tagCompound)
+	{
+		if (this instanceof ITileTanker)
+		{
+			for (int index = 0; index < ((ITileTanker)this).getTanks().size(); index++)
+			{
+				final FluidTank tank = ((ITileTanker)this).getTanks().get(index);
+				final String name = "tank_" + index;
+				FluidUtil.writeNBTTank(tank, name, tagCompound);
+			}
+		}
+	}
+
+	public void readNBTProcesses(final NBTTagCompound tagCompound)
+	{
+		if (this instanceof ITileProcessor)
+		{
+			for (final ITickProcess process : ((ITileProcessor)this).getProcesses())
+			{
+				process.readFromNBT(tagCompound);
+			}
+		}
+	}
+
+	public void writeNBTProcesses(final NBTTagCompound tagCompound)
+	{
+		if (this instanceof ITileProcessor)
+		{
+			for (final ITickProcess process : ((ITileProcessor)this).getProcesses())
+			{
+				process.writeToNBT(tagCompound);
+			}
+		}
+	}
+
+	@Override public void readFromNBT(final NBTTagCompound tagCompound)
 	{
 		super.readFromNBT(tagCompound);
 
 		this.readNBTTileName(tagCompound);
 		this.readNBTCustomName(tagCompound);
 		this.readNBTFrontSide(tagCompound);
+
+		this.readNBTTanks(tagCompound);
+		this.readNBTProcesses(tagCompound);
 	}
 
 	@Override public void writeToNBT(NBTTagCompound tagCompound)
@@ -43,6 +99,9 @@ implements ITileName, ITileCustomName, ITileFrontSide
 		this.writeNBTTileName(tagCompound);
 		this.writeNBTCustomName(tagCompound);
 		this.writeNBTFrontSide(tagCompound);
+
+		this.writeNBTTanks(tagCompound);
+		this.writeNBTProcesses(tagCompound);
 	}
 
 
@@ -52,17 +111,39 @@ implements ITileName, ITileCustomName, ITileFrontSide
 	//
 	// ##################################################
 
+	public void readDataPacket(final NBTTagCompound tagCompound)
+	{
+		this.readNBTTileName(tagCompound);
+		this.readNBTCustomName(tagCompound);
+		this.readNBTFrontSide(tagCompound);
+
+		this.readNBTTanks(tagCompound);
+		this.readNBTProcesses(tagCompound);
+	}
+
+	public void writeDataPacket(final NBTTagCompound tagCompound)
+	{
+		this.writeNBTTileName(tagCompound);
+		this.writeNBTCustomName(tagCompound);
+		this.writeNBTFrontSide(tagCompound);
+
+		this.writeNBTTanks(tagCompound);
+		this.writeNBTProcesses(tagCompound);
+	}
+
 	@Override public Packet getDescriptionPacket()
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-		this.writeToNBT(tag);
+		//this.writeToNBT(tag);
+		this.writeDataPacket(tag);
 		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tag);
 	}
 
 	@Override public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
 	{
 		NBTTagCompound tag = pkt.func_148857_g();
-		this.readFromNBT(tag);
+		//this.readFromNBT(tag);
+		this.readDataPacket(tag);
 	}
 
 	// ##################################################
