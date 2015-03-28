@@ -1,5 +1,9 @@
 package jeckelcorelibrary.base.tiles;
 
+import jeckelcorelibrary.api.processes.ITickProcess;
+import jeckelcorelibrary.api.tiles.ITileProcessor;
+import jeckelcorelibrary.api.tiles.ITileTanker;
+import jeckelcorelibrary.utils.FluidUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -39,6 +43,16 @@ public abstract class ATileInventory extends ATileBase implements IInventory
 		super.readFromNBT(tagCompound);
 
 		this.readNBTInventory(tagCompound);
+
+		if (this instanceof ITileTanker)
+		{
+			for (int index = 0; index < ((ITileTanker)this).getTanks().size(); index++) { FluidUtil.readNBTTank(((ITileTanker)this).getTanks().get(index), "tank_" + index, tagCompound); }
+		}
+
+		if (this instanceof ITileProcessor)
+		{
+			for (final ITickProcess process : ((ITileProcessor)this).getProcesses()) { process.readFromNBT(tagCompound); }
+		}
 	}
 
 	@Override public void writeToNBT(NBTTagCompound tagCompound)
@@ -46,6 +60,16 @@ public abstract class ATileInventory extends ATileBase implements IInventory
 		super.writeToNBT(tagCompound);
 
 		this.writeNBTInventory(tagCompound);
+
+		if (this instanceof ITileTanker)
+		{
+			for (int index = 0; index < ((ITileTanker)this).getTanks().size(); index++) { FluidUtil.writeNBTTank(((ITileTanker)this).getTanks().get(index), "tank_" + index, tagCompound); }
+		}
+
+		if (this instanceof ITileProcessor)
+		{
+			for (final ITickProcess process : ((ITileProcessor)this).getProcesses()) { process.writeToNBT(tagCompound); }
+		}
 	}
 
 

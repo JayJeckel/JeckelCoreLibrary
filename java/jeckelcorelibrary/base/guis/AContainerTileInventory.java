@@ -31,7 +31,7 @@ public abstract class AContainerTileInventory<TTileEntity extends TileEntity> ex
 				process.supplySynchHandlers(this._synchList);
 			}
 
-			((ITileProcessor) this._tile).supplySynchHandlers(this._synchList);
+			//((ITileProcessor) this._tile).supplySynchHandlers(this._synchList);
 		}
 	}
 
