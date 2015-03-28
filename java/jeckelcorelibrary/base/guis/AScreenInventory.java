@@ -15,7 +15,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -122,13 +121,12 @@ public abstract class AScreenInventory extends GuiContainer
 
 	protected void bindDefaultTexture()
 	{
-		this.bindTexture(this.getResourceLocation());
+		RenderUtil.bindTexture(this.mc, this.getResourceLocation());
 	}
 
 	protected void bindTexture(ResourceLocation resource)
 	{
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(resource);
+		RenderUtil.bindTexture(this.mc, resource);
 	}
 
 
@@ -325,7 +323,7 @@ public abstract class AScreenInventory extends GuiContainer
 	{
 		if (liquid == null || liquid.amount <= 0 || liquid.getFluid() == null) { return null; }
 
-		RenderUtil.bindTexture(this.mc, TextureMap.locationBlocksTexture);
+		RenderUtil.bindBlocksTexture(this.mc);
 		return liquid.getFluid().getStillIcon();
 	}
 
