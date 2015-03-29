@@ -122,8 +122,46 @@ public final class FluidUtil
 		return FluidContainerRegistry.fillFluidContainer(fluid, empty);
 	}
 
+	/**
+	 * Read data from the NBT tag and set the tank values.
+	 * @param tank Tank to set data on.
+	 * @param tankName Name of sub tag to get NBT data from.
+	 * @param tagCompound NBT tag to work with.
+	 */
+	public static void readNBTTank(final FluidTank tank, final String tankName, final NBTTagCompound tagCompound)
+	{
+		if (tagCompound.hasKey(tankName))
+		{
+			NBTTagCompound tag = tagCompound.getCompoundTag(tankName);
+			if (tank.getCapacity() < 0) { tank.setCapacity(tag.getInteger("capacity")); }
+			if (tag.hasKey("fluid")) { tank.readFromNBT(tag.getCompoundTag("fluid")); }
+		}
+	}
 
+	/**
+	 * Write tank values to NBT tag data.
+	 * @param tank Tank to get data from.
+	 * @param tankName Name of sub tag to store NBT data in.
+	 * @param tagCompound NBT tag to work with.
+	 */
+	public static void writeNBTTank(final FluidTank tank, final String tankName, final NBTTagCompound tagCompound)
+	{
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setInteger("capacity", tank.getCapacity());
+		tag.setTag("fluid", tank.writeToNBT(new NBTTagCompound()));
+		tagCompound.setTag(tankName, tag);
+	}
 
+	/**
+	 * Helper method to provide fluid tank synch handlers to a synch list.
+	 * This is a temporary method until the tank synching system is fully
+	 * fleshed out.
+	 *
+	 * Currently, this method only supports tanks with a capacity of
+	 * 64,000 mb or less.
+	 * @param tank Tank instance to generate handlers for.
+	 * @param list Synch list to add handlers to.
+	 */
 	public static void supplySynchHandlers(final FluidTank tank, final SynchList list)
 	{
 		list.addTankFluidId(tank);
@@ -140,23 +178,5 @@ public final class FluidUtil
 		{
 			throw new IllegalArgumentException("Fluid capacities larger than 64000 can not be handled.");
 		}
-	}
-
-	public static void readNBTTank(final FluidTank tank, final String tankName, final NBTTagCompound tagCompound)
-	{
-		if (tagCompound.hasKey(tankName))
-		{
-			NBTTagCompound tag = tagCompound.getCompoundTag(tankName);
-			if (tank.getCapacity() < 0) { tank.setCapacity(tag.getInteger("capacity")); }
-			if (tag.hasKey("fluid")) { tank.readFromNBT(tag.getCompoundTag("fluid")); }
-		}
-	}
-
-	public static void writeNBTTank(final FluidTank tank, final String tankName, final NBTTagCompound tagCompound)
-	{
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("capacity", tank.getCapacity());
-		tag.setTag("fluid", tank.writeToNBT(new NBTTagCompound()));
-		tagCompound.setTag(tankName, tag);
 	}
 }
