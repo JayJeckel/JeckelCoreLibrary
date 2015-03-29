@@ -54,6 +54,25 @@ public class TankSynchHandlers
 		}
 	}
 
+	/*public static class AmountBucket extends ASynchHandler
+	{
+		public AmountBucket(final FluidTank tank)
+		{
+			super(0);
+			this._tank = tank;
+		}
+
+		protected final FluidTank _tank;
+
+		@Override protected int queryWorldValue() { return this._tank.getFluidAmount() / 32000; }
+
+		@Override protected void commitValue(final int value)
+		{
+			if (this._tank.getFluid() == null) { return; }
+			this._tank.setFluid(new FluidStack(FluidUtil.getId(this._tank.getFluid()), value * 32000));
+		}
+	}*/
+
 	public static class AmountPrimary extends ASynchHandler
 	{
 		public AmountPrimary(final FluidTank tank)
@@ -78,9 +97,7 @@ public class TankSynchHandlers
 	{
 		public AmountAdditional(final FluidTank tank)
 		{
-			super(0);
-			this._tank = tank;
-			this._count = 1;
+			this(tank, 1);
 		}
 
 		public AmountAdditional(final FluidTank tank, final int count)
