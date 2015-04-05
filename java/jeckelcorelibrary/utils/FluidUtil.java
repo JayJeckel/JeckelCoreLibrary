@@ -2,7 +2,6 @@ package jeckelcorelibrary.utils;
 
 import jeckelcorelibrary.core.guis.SynchList;
 import jeckelcorelibrary.core.guis.TankSynchHandlers.AmountAdditional;
-import jeckelcorelibrary.core.guis.TankSynchHandlers.AmountPrimary;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -165,18 +164,34 @@ public final class FluidUtil
 	public static void supplySynchHandlers(final FluidTank tank, final SynchList list)
 	{
 		list.addTankFluidId(tank);
+		//list.addTankFluidAmount(tank);
 		if (tank.getCapacity() <= 32000)
 		{
 			list.addTankFluidAmount(tank);
 		}
 		else if (tank.getCapacity() <= 64000)
 		{
-			list.add(new AmountPrimary(tank));
-			list.add(new AmountAdditional(tank));
+			//list.add(new AmountPrimary(tank));
+			//list.add(new AmountAdditional(tank));
+			list.add(new AmountAdditional(tank, 0));
+			list.add(new AmountAdditional(tank, 1));
+		}
+		else if (tank.getCapacity() <= 96000)
+		{
+			list.add(new AmountAdditional(tank, 0));
+			list.add(new AmountAdditional(tank, 1));
+			list.add(new AmountAdditional(tank, 2));
+		}
+		else if (tank.getCapacity() <= 128000)
+		{
+			list.add(new AmountAdditional(tank, 0));
+			list.add(new AmountAdditional(tank, 1));
+			list.add(new AmountAdditional(tank, 2));
+			list.add(new AmountAdditional(tank, 3));
 		}
 		else
 		{
-			throw new IllegalArgumentException("Fluid capacities larger than 64000 can not be handled.");
+			throw new IllegalArgumentException("Fluid capacities larger than 128,000 can not be handled.");
 		}
 	}
 }
