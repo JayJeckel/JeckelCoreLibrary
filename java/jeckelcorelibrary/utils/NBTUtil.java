@@ -1,10 +1,7 @@
 package jeckelcorelibrary.utils;
 
-import java.util.Arrays;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 
 /**
  * Static helper class to centralize nbt related methods.
@@ -12,17 +9,32 @@ import net.minecraft.nbt.NBTTagList;
  * Creative Commons Attribution-NonCommercial <http://creativecommons.org/licenses/by-nc/3.0/deed.en_US>
  * @author JayJeckel <http://minecraft.jeckelland.site88.net/>
  */
-public class NBTUtil
+public final class NBTUtil
 {
-	/**
-	 * This is a "static" class and should not be instanced.
-	 */
+	/** This is a "static" class and should not be instanced. */
 	private NBTUtil() { }
 
-	public static boolean hasTag(ItemStack stack, String... tagPath)
+	/**
+	 * Determine if a stack has a specific tag.
+	 * @param stack Stack to check.
+	 * @param tagPath Tag path to check.
+	 * @return True if the tag exists.
+	 */
+	public static boolean hasTag(final ItemStack stack, final String... tagPath)
 	{
-		NBTTagCompound tag = stack.getTagCompound();
-		if (tag == null) { return false; }
+		return hasTag(stack.getTagCompound(), tagPath);
+	}
+
+	/**
+	 * Determine if a compound tag contains a specific tag.
+	 * @param tagCompound Compound tag to check.
+	 * @param tagPath Tag path to check.
+	 * @return True if the tag exists.
+	 */
+	public static boolean hasTag(final NBTTagCompound tagCompound, final String... tagPath)
+	{
+		if (tagCompound == null) { return false; }
+		NBTTagCompound tag = tagCompound;
 		for (String key : tagPath)
 		{
 			if (!tag.hasKey(key)) { return false; }
@@ -31,10 +43,27 @@ public class NBTUtil
 		return true;
 	}
 
-	public static NBTTagCompound getTag(ItemStack stack, String... tagPath)
+	/**
+	 * Retrieve a nested tag from a stack.
+	 * @param stack Stack to check.
+	 * @param tagPath Tag path to check.
+	 * @return Nest tag or null if not found.
+	 */
+	public static NBTTagCompound getTag(final ItemStack stack, final String... tagPath)
 	{
-		NBTTagCompound tag = stack.getTagCompound();
-		if (tag == null) { return null; }
+		return getTag(stack.getTagCompound(), tagPath);
+	}
+
+	/**
+	 * Retrieve a nested tag.
+	 * @param tagCompound Compound tag to check.
+	 * @param tagPath Tag path to check.
+	 * @return Nested compound tag or null if not found.
+	 */
+	public static NBTTagCompound getTag(final NBTTagCompound tagCompound, final String... tagPath)
+	{
+		if (tagCompound == null) { return null; }
+		NBTTagCompound tag = tagCompound;
 		for (String key : tagPath)
 		{
 			if (!tag.hasKey(key)) { return null; }
@@ -43,10 +72,38 @@ public class NBTUtil
 		return tag;
 	}
 
-	public static NBTTagCompound ensureTag(ItemStack stack, String... tagPath)
+	/**
+	 * Retrieve a nested tag or create it if it doesn't exist.
+	 * @param stack Stack to check.
+	 * @return Stack's compound tag.
+	 */
+	public static NBTTagCompound ensureTag(final ItemStack stack)
 	{
 		if (stack.getTagCompound() == null) { stack.setTagCompound(new NBTTagCompound()); }
-		NBTTagCompound tag = stack.getTagCompound();
+		return stack.getTagCompound();
+	}
+
+	/**
+	 * Retrieve a nested tag from a stack or create it if it doesn't exist.
+	 * @param stack Stack to check.
+	 * @param tagPath Tag path to check.
+	 * @return Nested compound tag.
+	 */
+	public static NBTTagCompound ensureTag(final ItemStack stack, final String... tagPath)
+	{
+		return ensureTag(ensureTag(stack), tagPath);
+	}
+
+	/**
+	 * Retrieve a nested tag or create it if it doesn't exist.
+	 * @param tagCompound Compound tag to check.
+	 * @param tagPath Tag path to check.
+	 * @return Nested compound tag.
+	 */
+	public static NBTTagCompound ensureTag(final NBTTagCompound tagCompound, final String... tagPath)
+	{
+		if (tagCompound == null) { return null; }// throw here, null isn't valid input
+		NBTTagCompound tag = tagCompound;
 		for (String key : tagPath)
 		{
 			if (!tag.hasKey(key)) { tag.setTag(key, new NBTTagCompound()); }
@@ -55,7 +112,7 @@ public class NBTUtil
 		return tag;
 	}
 
-	public static String[] getTagStringArray(ItemStack stack, int count, String... tagPath)
+	/*public static String[] getTagStringArray(ItemStack stack, int count, String... tagPath)
 	{
 		String[] text = new String[count];
 		NBTTagCompound tag = getTag(stack, tagPath);
@@ -79,9 +136,9 @@ public class NBTUtil
 		{
 			tag.setString("" + index, text[index]);
 		}
-	}
+	}*/
 
-	public static int getTagInteger(ItemStack stack, String... tagPath)
+	/*public static int getTagInteger(ItemStack stack, String... tagPath)
 	{
 		NBTTagCompound tag = getTag(stack, Arrays.copyOfRange(tagPath, 0, tagPath.length - 1));
 		if (tag == null || !tag.hasKey(tagPath[tagPath.length - 1]))
@@ -95,9 +152,9 @@ public class NBTUtil
 	{
 		NBTTagCompound tag = ensureTag(stack, Arrays.copyOfRange(tagPath, 0, tagPath.length - 1));
 		tag.setInteger(tagPath[tagPath.length - 1], value);
-	}
+	}*/
 
-	public static ItemStack[] readItemStackArray(NBTTagCompound tagCompound, String tagName, int inventorySize)
+	/*public static ItemStack[] readItemStackArray(NBTTagCompound tagCompound, String tagName, int inventorySize)
 	{
 		ItemStack[] stacks = new ItemStack[inventorySize];
 
@@ -132,5 +189,5 @@ public class NBTUtil
 			}
 		}
 		tagCompound.setTag(tagName + "." + "items", tagList);
-	}
+	}*/
 }
