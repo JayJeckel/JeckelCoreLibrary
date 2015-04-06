@@ -8,13 +8,8 @@ package jeckelcorelibrary.utils;
  */
 public final class TimeUtil
 {
-	/**
-	 * This is a "static" class and should not be instanced.
-	 */
+	/** This is a "static" class and should not be instanced. */
 	private TimeUtil() { }
-
-	//final double percent = ((double)amount / (double)cap) * 100.0D;
-	//String.format("%.1f", percent) + "%"
 
 	/** Number of ticks in a tick, ie 1. */
 	public static final int tick = 1;
