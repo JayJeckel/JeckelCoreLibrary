@@ -53,15 +53,6 @@ public class GuiHandler implements IGuiHandler
 	@Override public Object getServerGuiElement(final int id, final EntityPlayer player, final World world, final int x, final int y, final int z)
 	{
 		{
-			final ItemStack stack = player.getHeldItem();
-			final Item item = (stack == null ? null : stack.getItem());
-			if (item != null && item instanceof IItemGuiActivator)
-			{
-				return ((IItemGuiActivator)item).createContainer(player);
-			}
-		}
-
-		{
 			final Block block = world.getBlock(x, y, z);
 			if (block != null && block instanceof IBlockGuiActivator)
 			{
@@ -74,6 +65,15 @@ public class GuiHandler implements IGuiHandler
 			if (tile != null && tile instanceof ITileGuiActivator)
 			{
 				return ((ITileGuiActivator)tile).createContainer(player);
+			}
+		}
+
+		{
+			final ItemStack stack = player.getHeldItem();
+			final Item item = (stack == null ? null : stack.getItem());
+			if (item != null && item instanceof IItemGuiActivator)
+			{
+				return ((IItemGuiActivator)item).createContainer(player);
 			}
 		}
 
@@ -112,16 +112,6 @@ public class GuiHandler implements IGuiHandler
 	@Override public Object getClientGuiElement(final int id, final EntityPlayer player, final World world, final int x, final int y, final int z)
 	{
 		{
-			final ItemStack stack = player.getHeldItem();
-			final Item item = (stack == null ? null : stack.getItem());
-			if (item != null && item instanceof IItemGuiActivator)
-			{
-				if (world.isRemote) { return ((IItemGuiActivator)item).createScreen(player); }
-				else { return ((IItemGuiActivator)item).createContainer(player); }
-			}
-		}
-
-		{
 			final Block block = world.getBlock(x, y, z);
 			if (block != null && block instanceof IBlockGuiActivator)
 			{
@@ -136,6 +126,16 @@ public class GuiHandler implements IGuiHandler
 			{
 				if (world.isRemote) { return ((ITileGuiActivator)tile).createScreen(player); }
 				else { return ((ITileGuiActivator)tile).createContainer(player); }
+			}
+		}
+
+		{
+			final ItemStack stack = player.getHeldItem();
+			final Item item = (stack == null ? null : stack.getItem());
+			if (item != null && item instanceof IItemGuiActivator)
+			{
+				if (world.isRemote) { return ((IItemGuiActivator)item).createScreen(player); }
+				else { return ((IItemGuiActivator)item).createContainer(player); }
 			}
 		}
 
