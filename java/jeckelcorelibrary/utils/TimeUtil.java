@@ -70,7 +70,7 @@ public final class TimeUtil
 
 	/**
 	 * Get text displaying time values for a total number of ticks.
-	 * @param ticks Total number of ticks.
+	 * @param tickTotal Total number of ticks.
 	 * @param descending Order of time values.
 	 * @param verbose Include values that are zero.
 	 * @return Formatted display text of all time values.

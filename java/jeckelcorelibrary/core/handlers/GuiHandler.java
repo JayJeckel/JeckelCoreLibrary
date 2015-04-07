@@ -42,7 +42,7 @@ public class GuiHandler implements IGuiHandler
 	 *
 	 * If none of the conditions above are met, then null will be returned.
 	 *
-	 * @param ID The Gui ID Number
+	 * @param id The Gui ID number (argument unused)
 	 * @param player The player viewing the Gui
 	 * @param world The current world
 	 * @param x X Position
@@ -101,7 +101,7 @@ public class GuiHandler implements IGuiHandler
 	 *
 	 * If none of the conditions above are met, then null will be returned.
 	 *
-	 * @param ID The Gui ID Number
+	 * @param id The gui ID number (argument unused)
 	 * @param player The player viewing the Gui
 	 * @param world The current world
 	 * @param x X Position

@@ -8,14 +8,14 @@ public interface ISharedTabRegistry
 	/**
 	 * Add the block to the block sub group of the mod id group.
 	 * @param modId Id of the mod owning the block.
-	 * @param item Block to register.
+	 * @param block Block to register.
 	 */
 	public void addBlock(final String modId, final Block block);
 
 	/**
 	 * Add the block to the block sub group of the mod id group.
 	 * @param modId Id of the mod owning the block.
-	 * @param item Block to register.
+	 * @param block Block to register.
 	 * @param meta Meta value of the block to register.
 	 */
 	public void addBlock(final String modId, final Block block, final int meta);
@@ -53,14 +53,14 @@ public interface ISharedTabRegistry
 	/**
 	 * Add the block to the misc sub group of the mod id group.
 	 * @param modId Id of the mod owning the block.
-	 * @param item Block to register.
+	 * @param block Block to register.
 	 */
 	public void addMisc(final String modId, final Block block);
 
 	/**
 	 * Add the block to the misc sub group of the mod id group.
 	 * @param modId Id of the mod owning the block.
-	 * @param item Block to register.
+	 * @param block Block to register.
 	 * @param meta Meta value of the block to register.
 	 */
 	public void addMisc(final String modId, final Block block, final int meta);

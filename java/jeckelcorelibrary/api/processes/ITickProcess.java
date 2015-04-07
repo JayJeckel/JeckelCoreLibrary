@@ -106,8 +106,8 @@ public interface ITickProcess
 	 * This method is useful filling up progress bars when drawing gui
 	 * elements related to the process.
 	 * @param scale The value to translate the time/time max ratio onto.
-	 * @param invert
-	 * @return
+	 * @param invert Invert the value ont he time/time max scale.
+	 * @return The scaled time value.
 	 */
 	int getTimeScaled(final int scale, final boolean invert);
 
