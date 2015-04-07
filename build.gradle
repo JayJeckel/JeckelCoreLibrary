@@ -28,7 +28,7 @@ mod.setProperty("forgeversion", "10.13.2.1230")
 
 mod.setProperty("id", "jeckelcorelibrary")
 mod.setProperty("name", "JeckelCoreLibrary")
-mod.setProperty("version", "0.6.0-alpha")
+mod.setProperty("version", "0.6.0-beta")
 
 minecraft { version = mod.mcversion + "-" + mod.forgeversion }
 version = mod.version
